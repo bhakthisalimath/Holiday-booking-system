@@ -1,103 +1,162 @@
-# HolidayPlanner
+# 🌴 HolidayPlanner
 
-HolidayPlanner is a web application that allows users to book holiday packages, including city tours, beach holidays, and countryside getaways. The app provides features to search, filter, and add packages to a booking cart, then proceed to checkout for payment.
+![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
+![Flask](https://img.shields.io/badge/Flask-3.x-green)
+![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-2.x-orange)
+![Platform](https://img.shields.io/badge/Platform-macOS%20%7C%20Windows%20%7C%20Linux-lightgrey)
 
-## Features
+A **full-stack holiday booking web app** built with **Python**, **Flask**, and **SQLAlchemy**.  
+Users can sign up, log in, browse and filter holiday packages, add them to a cart, and complete checkout.  
+Admins can create, edit, and delete packages. The app uses **SQLite**, **Jinja2** templates, and **Flask-SocketIO** for real-time support.
 
-- **Browse and Search Packages:** Users can view a variety of holiday packages and filter them based on categories, price range, and duration.
-- **Add to Cart:** Users can add selected packages to the booking cart and adjust the number of nights.
-- **Checkout:** Users can proceed to checkout, provide shipping and payment details, and complete their purchase.
-- **Admin Features:** Admins can create, edit, and delete holiday packages.
+---
 
-## Getting Started
+## ✨ What it does
 
-### Prerequisites
+- **Authentication** — Sign up and log in with username/password; role-based access (user vs admin)
+- **Browse & filter** — View holiday packages and filter by category, price range, and duration
+- **Booking cart** — Add packages and adjust the number of nights
+- **Checkout** — Enter shipping and payment details to complete a booking
+- **Admin CRUD** — Create, edit, and delete packages (admin role only)
+- **Real-time** — Flask-SocketIO integrated for potential live updates (e.g. cart)
+- **Server** — Runs at **http://localhost:1204** (fixed port)
 
-To run this project locally, ensure you have the following installed:
+---
 
-- [Python 3.13](https://www.python.org/downloads/)
-- [Flask](https://flask.palletsprojects.com/en/latest/) and other dependencies listed in `requirements.txt`
+## ✅ Requirements
 
-### Installation
+| Component | Version |
+|-----------|---------|
+| **Python** | **3.10+** (3.13 recommended) |
+| **pip** | Any recent (used inside project venv) |
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/your-username/HolidayPlanner.git
-2. **Navigate to the project directory:**
-    ```bash
-    cd HolidayPlanner
-3. **Create and activate a virtual environment:**
-   ```bash
-   python3 -m venv venv
-    source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
-4. **Install dependencies:**
-    ```bash
-    pip install -r requirements.txt
+All other dependencies (Flask, Flask-SocketIO, SQLAlchemy) are installed automatically via `requirements.txt` when you run the setup script. The project uses a **virtual environment** (`venv`), so you do not need to install packages globally.
 
-### Running the Application
+---
 
-1. **Start the Flask server:**
-    ```bash
-    python app.py
+## 📁 Project structure
 
-2. **Open your browser and navigate to:**
-    ```bash
-    http://localhost:1204
+```
+Holiday-booking-system/
+├── app.py                  # Main Flask app, routes, REST endpoints, server entry
+├── db.py                   # Database layer: SQLAlchemy engine, session, CRUD
+├── models.py               # SQLAlchemy models: User, Package
+├── socket_routes.py        # Flask-SocketIO event handlers
+│
+├── requirements.txt        # Dependencies (Flask, Flask-SocketIO, SQLAlchemy)
+├── setup.sh                # One-time setup (macOS/Linux)
+├── setup.bat               # One-time setup (Windows)
+├── run.sh                  # Run app (macOS/Linux)
+├── run.bat                 # Run app (Windows)
+│
+├── templates/              # Jinja2 HTML templates
+│   ├── login.jinja
+│   ├── signup.jinja
+│   ├── home.jinja
+│   ├── booking_cart.jinja
+│   └── checkout.jinja
+├── static/                 # Static assets (CSS, JS, images)
+├── libs/                   # Third-party JS (e.g. js.cookie)
+├── database/               # SQLite DB (created on first run)
+│
+├── .vscode/
+│   ├── settings.json       # Python interpreter → project venv
+│   └── launch.json        # "Run HolidayPlanner" (F5)
+├── .gitignore
+└── README.md
+```
 
-### Stopping the Server and Clearing the Cart
-To stop the server, press CTRL+C. This action will also clear the cart automatically to ensure a fresh start for the next session.
+> `venv/`, `__pycache__/`, and `database/` are generated or local and are not committed.
 
-## Project Structure 
+---
 
-    HolidayPlanner/
-    │
-    ├── app.py                # Main application file
-    ├── templates/            # HTML templates for the app
-    │   ├── home.jinja        # Home page template
-    │   ├── booking_cart.jinja# Booking cart page template
-    │   ├── checkout.jinja    # Checkout page template
-    │   └── other templates...
-    ├── static/               # Static files (CSS, JS, images)
-    ├── requirements.txt      # Project dependencies
-    └── README.md             # Project documentation
+## 🚀 How to run
 
+All commands below are run from the **project root** (the folder containing `app.py` and `setup.sh`).
 
-## Usage
-1. Browse packages on the home page and use the filters to find suitable holiday options.
-2. Add packages to the booking cart and adjust the number of nights.
-3. Proceed to checkout to finalize the booking by providing shipping and payment details.
+### 1. One-time setup
 
-## Admin Features
-Admins have additional privileges to:
+Run **once per machine** (or after cloning) to create the virtual environment and install dependencies.
 
-- Create new packages
-- Edit existing packages
-- Delete packages
+**Option A — macOS / Linux**
 
-## Development
-### To contribute to this project:
+```bash
+./setup.sh
+```
 
-1. Create a new branch for your feature:
-   ```bash
-    git checkout -b your-feature-branch
+If you see `Permission denied`:
 
-2. Make your changes and commit them:
-   ```bash
-    git add .
-    git commit -m "Add your message here"
+```bash
+chmod +x setup.sh run.sh
+./setup.sh
+```
 
-3. Push your changes to the remote branch:
-   ```bash
-    git push origin your-feature-branch
+**Option B — Windows (Command Prompt)**
 
-4. Create a pull request on GitHub:
+```bat
+setup.bat
+```
 
-## License
-This project is open-source and available under the MIT License.
+**Option C — Manual (any OS)**
 
-## Contact
-For any questions, feel free to reach out to Bhakthi Salimath.
+```bash
+python3 -m venv venv
+source venv/bin/activate   # Windows: venv\Scripts\activate
+pip install -r requirements.txt
+```
 
-# Happy traveling with HolidayPlanner! 🌴✈️🏕️
+### 2. Start the app
 
-This `README.md` provides a friendly overview of the project, including how to get started, usage, and contribution guidelines. Let me know if there's anything else you'd like to include!
+**macOS / Linux:**
+
+```bash
+./run.sh
+```
+
+**Windows:**
+
+```bat
+run.bat
+```
+
+**Or** with venv already activated: `python app.py`  
+**Or** in Cursor/VS Code: press **F5** (Run → Start Debugging) — uses the project venv if selected.
+
+### 3. Open in browser
+
+Go to **http://localhost:1204**. You should see the login page.
+
+- **Sign up** or **log in** as a normal user.
+- To try **admin** features (create/edit/delete packages), log in with **Admin** / **password** (seeded on first run).
+
+To stop the server: **Ctrl+C** in the terminal. Stopping also clears the cart for the next session.
+
+---
+
+## 🧪 Tests
+
+No automated test suite is included in this project. Manual testing: sign up, log in, browse, add to cart, checkout, and (as admin) create/edit/delete packages.
+
+---
+
+## 📌 Quick fixes
+
+| Issue | Fix |
+|-------|-----|
+| **`pip: command not found`** | Use `./setup.sh` or `setup.bat` so the project creates its own `venv`; then use `./run.sh` or `run.bat` (they use the venv’s Python). |
+| **`ModuleNotFoundError: sqlalchemy`** (or flask) | Run setup again: `./setup.sh` or `setup.bat`. Or with venv activated: `pip install -r requirements.txt`. |
+| **`Permission denied`** on `./setup.sh` | Run `chmod +x setup.sh run.sh` then `./setup.sh`. |
+| **Port 1204 already in use** | Stop the other process (Ctrl+C in its terminal), or kill it: `lsof -i :1204` then `kill <PID>` (macOS/Linux); on Windows use `netstat -ano` and `findstr :1204`, then `taskkill /PID <PID> /F`. |
+| **No `venv` after clone** | Normal — `venv` is in `.gitignore`. Run `./setup.sh` or `setup.bat` to create it and install deps. |
+| **F5 uses wrong Python** | Run setup first. In Cursor/VS Code: Command Palette → "Python: Select Interpreter" → choose `./venv/bin/python` (or `venv\Scripts\python.exe` on Windows). |
+| **Database / "no such table"** | Run the app from the **project root**. If needed, delete the `database/` folder and run again; the app recreates the DB and seeds admin + sample packages. |
+| **Windows: `setup.bat` fails** | Open Command Prompt, `cd` to the project root, run `setup.bat`. If Python is not on PATH, try `py -m venv venv` then `venv\Scripts\pip install -r requirements.txt` and `venv\Scripts\python app.py`. |
+
+---
+
+## 👩‍💻 Author
+
+**Bhakthi Salimath**  
+Graduate application portfolio project.
+
+For questions about this project or the application, please reach out.
